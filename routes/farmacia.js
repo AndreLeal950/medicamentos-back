@@ -68,6 +68,22 @@ router.post('/exclui', async function (req, res, next) {
     }
 })
 
+router.post('/id', async function (req, res, next) {
+ 
+    const pInfo = {
+       id
+    } = req.body;
+
+    try {
+        res.json(await farmacia.consultFarmacia(pInfo));
+    } catch (err) {
+        console.error(`Erro`, err.message);
+        next(err)
+            
+    }
+})
+
+
 
 
 module.exports = router;

@@ -44,12 +44,30 @@ async function deleteFarmacia(data) {
     return retorno;
 }
 
+async function consultFarmacia(data) {
+    
+    let retorno = 1;
+   
+    const sql = "SELECT * FROM farmacia WHERE farma_id = ?";
+    const rows = await db.query(sql, [data.id], function (err, rows) {
+        console.log('TESTE');
+        if (err) {
+            retorno = 0;
+        }
+       
+    });
+    console.log(rows);
+    retorno = rows;
+    return retorno;
+}
+
 
 module.exports = {
     getFarmacia,
     incluirFarmacia,
     updateFarmacia,
-    deleteFarmacia
+    deleteFarmacia,
+    consultFarmacia
     
 
 }
