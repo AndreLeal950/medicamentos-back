@@ -1,17 +1,18 @@
 const config = require('../config');
 const db = require('./db');
 
-
+//Consulta Medicamentos
 async function getMedicamentos( page = 0 ) {
     const rows =
         await db.query("SELECT medicamento_codigo , medicamento_nome , medicamento_codigo_barras from medicamento ORDER BY medicamento_codigo  DESC ");
     return rows;
 } 
 
+//Inclui Medicamentos
 async function incluirMedicamentos(data) {
+    
     let retorno = 1;
-    console.log(data);
-
+    
     const sql = "INSERT INTO medicamento (medicamento_nome, medicamento_codigo_barras) VALUES (?, ?)";
     await db.query(sql, [data.nome, data.codigo_barras], function (err, rows) {
         if (err) {
@@ -21,11 +22,12 @@ async function incluirMedicamentos(data) {
     });
     return retorno;
 }
-async function updateMedicamentos(data) {
-    let retorno = 1 
-    console.log(data);
-   
 
+//Altera Medicamentos
+async function updateMedicamentos(data) {
+    
+    let retorno = 1 
+       
     const sql = "UPDATE medicamento  SET medicamento_nome=?, medicamento_codigo_barras=? where  medicamento_codigo=?";
     await db.query(sql, [data.nome, data.codigo_barras, data.codigo], function (err, rows) {
         if (err) {
@@ -38,22 +40,21 @@ async function updateMedicamentos(data) {
     
 };
 
-
+//Exclui Medicamentos
 async function deleteMedicamentos(data) {
-    let retorno = 1;
-    console.log(data); 
+    
+    let retorno = 1;   
     
     const sql = "DELETE FROM medicamento WHERE medicamento_codigo=?";
-    const rows = await db.query(sql, [data.codigo], function (err, rows) {
+    await db.query(sql, [data.codigo], function (err, rows) {
         if (err) {
             retorno = 0;
         }
     });
-    console.log(rows);
-    retorno = rows 
-    return retorno;
+   return retorno;
 }
 
+//Consulta Medicamentos pelo Id
 async function consultMedicamentos(data) {
     
     let retorno = 1;
@@ -64,7 +65,7 @@ async function consultMedicamentos(data) {
             retorno = 0;
         }
     });
-    console.log(rows);
+   
     retorno = rows;
     return retorno;
 }

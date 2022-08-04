@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const farmacia = require('../services/farmacia');
+const registro = require('../services/registro');
 
-//Lista todas as farmacias
+//Lista todos os Usuários
 router.get('/', async function (req, res, next) {
     try {
-        res.json(await farmacia.getFarmacia(req.body.id));
+        res.json(await registro.getRegistro(req.body.id));
     
     } catch (err) {
         console.error(`Erro`, err.message);
@@ -14,43 +14,45 @@ router.get('/', async function (req, res, next) {
     }
 });
 
-// Incluir Farmacia
-router.post('/incluir', async function (req, res, next) {
-    console.log(req);
-    
-    const pInfo = {
-        nome,
-        endereco,
-        localizacao
-    } = req.body;
-    console.log(nome);
-    try {
-        res.json(await farmacia.incluirFarmacia(pInfo));
-    } catch (error) {
-        console.error(`Erro`, err.message);
-        next(err)
-        
-    }
-})
-// Atualiza os dados 
-router.post('/update', async function (req, res, next) {
-    console.log(req);
 
-    const pInfo = {
-        nome,
-        endereco,
-        localizacao,
+
+// incluir Registro
+router.post('/incluir', async function (req, res, next) {
+
+    const pInfo =  {
+        medicamento,
+        farmacia,
+        usuario,
+        valor
+    } = req.body;
+
+    try {
+        res.json(await registro.incluirRegistro(pInfo));
+    } catch (err) {
+        console.error(`Erro`, err.message);
+        next(err);
+    }
+});
+
+
+// Alterar Registro
+router.post('/update', async function (req, res, next) {
+console.log(req);
+    const pInfo =  {
+        medicamento,
+        farmacia,
+        valor,
+        usuario,
         id
     } = req.body;
-    
+
     try {
-        res.json(await farmacia.updateFarmacia(pInfo));
-    } catch (error) {
+        res.json(await registro.updateRegistro(pInfo));
+    } catch (err) {
         console.error(`Erro`, err.message);
-        next(err)
-        
+        next(err);
     }
-})
+});
 
 // Excluir os dados 
 router.post('/exclui', async function (req, res, next) {
@@ -60,7 +62,7 @@ router.post('/exclui', async function (req, res, next) {
     } = req.body;
     
     try {
-        res.json(await farmacia.deleteFarmacia(pInfo));
+        res.json(await registro.deleteRegistro(pInfo));
     } catch (error) {
         console.error(`Erro`, err.message);
         next(err)
@@ -76,15 +78,13 @@ router.post('/id', async function (req, res, next) {
     } = req.body;
 
     try {
-        res.json(await farmacia.consultFarmacia(pInfo));
+        res.json(await registro.consultRegistro(pInfo));
     } catch (err) {
         console.error(`Erro`, err.message);
         next(err)
             
     }
 })
-
-
 
 
 module.exports = router;

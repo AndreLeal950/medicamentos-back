@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 
 const medicamentoRouter = require('./routes/medicamento');
 const farmaciaRouter = require('./routes/farmacia');
+const registroRouter = require('./routes/registro');
+const usuarioRouter = require('./routes/usuario');
 
 
 app.get('/', (req, res) => {
@@ -27,6 +29,8 @@ app.get('/coders', (req, res) => {
 
 app.use('/medicamentos', medicamentoRouter);
 app.use('/farmacias', farmaciaRouter);
+app.use('/registros', registroRouter);
+app.use('/usuarios', usuarioRouter);
 
 app.listen(port, () => {
     console.log('Servidor está rodando na porta ' + port);

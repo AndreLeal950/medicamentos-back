@@ -21,8 +21,9 @@ router.post('/incluir', async function (req, res, next) {
     const pInfo = {
         nome,
         codigo_barras
+        
     } = req.body;
-    console.log(nome);
+   
     try {
         res.json(await medicamentos.incluirMedicamentos(pInfo));
     } catch (error) {
